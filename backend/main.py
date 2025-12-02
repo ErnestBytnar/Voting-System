@@ -185,13 +185,14 @@ audit_router = APIRouter(prefix="", tags=["Public Audit & Administration"])
 
 @audit_router.get("/public-ledger")
 def get_public_ledger(db: Session = Depends(get_db)):
-    """Publiczna tablica (Fake Blockchain)"""
-    votes = db.query(Vote).order_by(Vote.timestamp.desc()).all()
+
+    votes = db.query(Vote).order_by(Vote.timestamp.desc()).limit(100).all() # Limit 100 dla wydajności
     ledger = [
         {
             "timestamp": v.timestamp.isoformat(),
             "hash": v.vote_hash,
-            "block": 10200 + v.id
+            "block": 10200 + v.id,
+            "official_result": v.recorded_candidate
         }
         for v in votes
     ]
