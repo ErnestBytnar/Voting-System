@@ -1,0 +1,15 @@
+
+```text
+node_modules
+.next
+out
+build
+dist
+.DS_Store
+*.log
+
+__pycache__
+*.py[cod]
+backend/election.db   # Baza danych SQLite (nie chcemy jej w repo)
+backend/.env          # Klucze prywatne
+.env
